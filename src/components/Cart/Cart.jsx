@@ -4,9 +4,12 @@ import './Cart.css';
 const Cart = ({cart}) => {
     let total=0;
     let totalShipping=0;
+    let quantity=0;
     for(const product of cart){
-        total=product.price+total;
-        totalShipping=product.shipping+totalShipping;
+        product.quantity=product.quantity || 1;
+        total=product.price+total*product.quantity;
+        totalShipping=product.shipping+totalShipping*product.quantity;
+        quantity=quantity+product.quantity;
     }
     const tax=total*7/100;
     const grandTotal=total+totalShipping+tax;
